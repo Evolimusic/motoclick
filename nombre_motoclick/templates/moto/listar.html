@@ -1,0 +1,46 @@
+<!-- templates/moto/listar.html -->
+{% extends "dashboard_base.html" %}
+
+{% block panel_content %}
+<div class="header-flex">
+    <h1 style="font-size: 26px; color: #212529; font-weight: bold; margin: 0;">Listado de Usuarios y Motos</h1>
+    <a href="{% url 'crear_moto' %}" class="btn-click-primary">
+        + Registrar Nueva moto
+    </a>
+</div>
+
+<div class="card-custom" style="padding: 0;">
+    <table class="table-custom">
+        <thead>
+            <tr>
+                <th style="width: 20%;">ID Usuario</th>
+                <th style="width: 50%;">Placa de la Moto</th>
+                <th style="width: 30%; text-align: right;">Acciones (Moto)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for objeto in lista_objetos %}
+            <tr>
+              
+<td style="font-weight: bold; color: #6c757d;">#{{ objeto.id_usuario.id_usuario }}</td>
+<td>
+
+                    <div class="placa-box">{{ objeto.placa }}</div>
+                </td> 
+                <td style="text-align: right;">
+                    <a href="{% url 'editar_moto' objeto.id_moto %}" class="btn-click-outline">Editar</a>
+                    <a href="{% url 'eliminar_moto' objeto.id_moto %}" class="btn-click-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" style="text-align: center; padding: 40px; color: #6c757d;">
+                    No hay registros guardados en esta tabla todavía.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

@@ -1,0 +1,9 @@
+<h1>¿Estás seguro de que deseas eliminar esta referencia de moto?</h1>
+<p>Esta acción removerá el modelo del sistema permanentemente.</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" style="background-color: red; color: white;">Sí, Confirmar Eliminación</button>
+    <br><br>
+    <a href="{% url 'home' %}">Cancelar y Volver</a>
+</form>

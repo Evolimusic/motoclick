@@ -1,0 +1,52 @@
+{% extends "dashboard_base.html" %}
+
+{% block panel_content %}
+<div class="header-flex">
+    <h1 style="font-size: 26px; color: #212529; font-weight: bold; margin: 0;">Listado de Talleres</h1>
+    <!-- ➕ BOTÓN MODERNO PARA CREAR UN NUEVA TALLER -->
+    <a href="{% url 'crear_taller' %}" class="btn-click-primary">
+         + Registrar Nuevo Taller
+    </a>
+</div>
+
+<div class="card-custom" style="padding: 0;">
+    <table class="table-custom">
+        <thead>
+            <tr>
+                <th style="width: 10%;">ID</th>
+                <th style="width: 30%;">Nombre</th>
+                <th style="width: 25%;">Dirección</th>
+                <th style="width: 15%;">Teléfono</th>
+                <th style="width: 20%;">Correo Electrónico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for objeto in lista_objetos %}
+            <tr>
+                <!-- ID del Taller -->
+                <td style="font-weight: bold; color: #6c757d;">#{{ objeto.id_taller }}</td>
+                
+                <!-- Nombre en negrita suave -->
+                <td style="font-weight: 500;">{{ objeto.nombre }}</td>
+                
+                <!-- Dirección -->
+                <td>{{ objeto.direccion|default:"-" }}</td>
+                
+                <!-- Teléfono -->
+                <td>{{ objeto.telefono|default:"-" }}</td>
+                
+                <!-- Correo Electrónico -->
+                <td style="color: #0d6efd;">{{ objeto.correo_electronico|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; color: #6c757d; padding: 30px;">
+                    No hay talleres registrados en el sistema todavía.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

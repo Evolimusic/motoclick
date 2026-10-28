@@ -1,0 +1,57 @@
+{% extends "dashboard_base.html" %}
+
+{% block panel_content %}
+<div class="header-flex">
+    <h1 style="font-size: 26px; color: #212529; font-weight: bold; margin: 0;">Listado de Repuestos</h1>
+    <!-- Solo el Admin ve el botón de registrar -->
+    {% if user.is_staff %}
+    <a href="{% url 'crear_repuesto' %}" class="btn-click-primary">
+         + Registrar Nuevo Repuesto
+    </a>
+    {% endif %}
+</div>
+
+<div class="card-custom" style="padding: 0;">
+    <table class="table-custom">
+        <thead>
+            <tr>
+                <th style="width: 10%;">ID</th>
+                <th style="width: 35%;">Nombre</th>
+                <th style="width: 25%;">Marca</th>
+                <th style="width: 15%; text-align: right;">Precio</th>
+                <!-- La columna acciones solo se dibuja para el Admin -->
+                {% if user.is_staff %}
+                <th style="width: 15%; text-align: right; padding-right: 25px;">Acciones</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for objeto in lista_objetos %}
+            <tr>
+                <td style="font-weight: bold; color: #6c757d;">#{{ objeto.id_repuesto }}</td>
+                <td style="font-weight: 500; text-transform: capitalize;">{{ objeto.nombre }}</td>
+                <td style="text-transform: uppercase; font-size: 13px;">{{ objeto.marca }}</td>
+                <td style="text-align: right; font-weight: bold; color: #198754;">
+                    ${{ objeto.precio|floatformat:0 }}
+                </td>
+                
+                <!-- 🛠️ BOTONES DE ACCIÓN VISIBLES SOLO PARA EL ADMIN -->
+                {% if user.is_staff %}
+                <td style="text-align: right; padding-right: 25px; white-space: nowrap;">
+                    <a href="{% url 'editar_repuesto' objeto.id_repuesto %}" class="btn-click-outline">Editar</a>
+                    <a href="{% url 'eliminar_repuesto' objeto.id_repuesto %}" class="btn-click-danger" onclick="return confirm('¿Seguro que deseas eliminar este repuesto?');">Eliminar</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% empty %}
+            <tr>
+                <!-- Ajustamos el colspan dinámicamente según el rol -->
+                <td colspan="{% if user.is_staff %}5{% else %}4{% endif %}" style="text-align: center; color: #6c757d; padding: 30px;">
+                    No hay repuestos registrados en el inventario todavía.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

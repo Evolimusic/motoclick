@@ -1,0 +1,159 @@
+{% load static %} <!--para mostrar archivos estaticos-->
+<!doctype html>
+<html lang="zxx">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}MotoClick{% endblock %}</title>
+    <link rel="icon" href="{% static 'img/favicon.png' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra %} {% endblock %}
+</head>
+
+<body>
+    <!--::header part start::-->
+    <header class="main_menu home_menu">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a class="navbar-brand" href="{% url 'landing_page' %}"> <img src="{% static 'img/logo.png' %}" alt="logo"> </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="menu_icon"><i class="fas fa-bars"></i></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'landing_page' %}">Inicio</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Repuestos
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                        <a class="dropdown-item" href="{% url 'catalogo_cliente' %}">Repuestos por Categoría</a>
+
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_3"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Páginas
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_3">
+                                        <a class="dropdown-item" href="{% url 'login' %}">Iniciar Sesión</a>
+                                        <a class="dropdown-item" href="{% url 'registro' %}">Registrarse</a>
+                                    </div>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Contacto</a>
+                                </li>
+
+                                <!-- === ENLACE AL GARAJE PARA EL CLIENTE === -->
+                                {% if user.is_authenticated and not user.is_superuser %}
+                                    <li class="nav-item">
+                                        <a class="nav-link font-weight-bold" href="{% url 'mi_garaje' %}" style="color: #ff3366 !important;">
+                                            🛠️ Mi Garaje
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="hearer_icon d-flex">
+                            <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
+                            <a href=""><i class="ti-heart"></i></a>
+                            <div class="dropdown cart">
+                                <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-cart-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="search_input" id="search_input_box">
+            <div class="container ">
+                <form class="d-flex justify-content-between search-inner">
+                    <input type="text" class="form-control" id="search_input" placeholder="Moto Busqueda">
+                    <button type="submit" class="btn"></button>
+                    <span class="ti-close" id="close_search" title="Close Search"></span>
+                </form>
+            </div>
+        </div>
+    </header>
+    <!-- Header part end-->
+
+    <!-- === COMPUERTA DE CONTENIDO DINÁMICO === -->
+    <!-- Colocada de forma maestra justo debajo del menú para que el garaje suba a la cima -->
+    <main style="min-height: 70vh;">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- === SECCIÓN DE PIE DE PÁGINA (FOOTER) === -->
+    <footer class="footer_part" style="background-color: #f8f9fa; padding: 30px 0; margin-top: 50px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 text-center text-lg-left">
+                    <p class="mb-0 text-muted small">
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | MotoClick APP
+                    </p>
+                </div>
+                <div class="col-lg-4 text-center text-lg-right mt-3 mt-lg-0">
+                    <div class="footer_icon social_icon">
+                        <ul class="list-unstyled mb-0 d-inline-flex">
+                            <li class="mx-2"><a href="#"><i class="fab fa-facebook-f text-secondary"></i></a></li>
+                            <li class="mx-2"><a href="#"><i class="fab fa-twitter text-secondary"></i></a></li>
+                            <li class="mx-2"><a href="#"><i class="fas fa-globe text-secondary"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--::footer_part end::-->
+
+    <!-- === JQUERY PLUGINS REQUERIDOS (FORMATO ESTÁTICO DE DJANGO) === -->
+    <script src="{% static 'js/jquery-1.12.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/mail-script.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+</body>
+
+</html>

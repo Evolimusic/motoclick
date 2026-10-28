@@ -1,0 +1,32 @@
+<h1>Listado de Servicios por Orden</h1>
+<br>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID Registro</th>
+            <th>ID Orden</th>
+            <th>Observación</th>
+            <th>Estado</th>
+            <th>Adicional</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for objeto in lista_objetos %}
+        <tr>
+            <td>{{ objeto.id_orden_servicio }}</td>
+            <td>{{ objeto.id_orden.id_orden }}</td>
+            <td>{{ objeto.observacion }}</td>
+            <td>{{ objeto.estado }}</td>
+            <td>{{ objeto.adicional }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay servicios registrados en ninguna orden todavía.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<a href="{% url 'home' %}">Volver al Inicio</a>

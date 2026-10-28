@@ -1,0 +1,183 @@
+{% extends "dashboard_base.html" %}
+
+{% block panel_content %}
+<div class="header-flex mb-2">
+    <div>
+        <h1 style="font-size: 28px; color: #212529; font-weight: bold; margin: 0;">Panel de Control - MotoClick</h1>
+        <p style="color: #6c757d; margin: 5px 0 0 0;">Selecciona un módulo para gestionar los registros del sistema operativo.</p>
+    </div>
+</div>
+
+<style>
+    /* Estilos específicos para la cuadrícula de tarjetas */
+    .grid-modulos {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+    .card-modulo {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #e9ecef;
+        transition: all 0.25s ease;
+    }
+    .card-modulo:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(216, 82, 104, 0.12);
+        border-color: #d85268;
+    }
+    .card-icon {
+        font-size: 28px;
+        margin-bottom: 12px;
+        display: inline-block;
+    }
+    .card-titulo {
+        font-size: 17px;
+        font-weight: bold;
+        color: #212529;
+        margin: 0 0 8px 0;
+    }
+    .card-desc {
+        font-size: 13px;
+        color: #6c757d;
+        margin: 0 0 16px 0;
+        line-height: 1.4;
+    }
+    .seccion-titulo {
+        font-size: 18px;
+        font-weight: bold;
+        color: #495057;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        border-bottom: 2px solid #dee2e6;
+        padding-bottom: 6px;
+    }
+</style>
+
+<!-- ================= SECCIÓN 1: MÓDULOS PRINCIPALES ================= -->
+<div class="seccion-titulo">Módulos Principales</div>
+<div class="grid-modulos">
+
+    <!-- Tarjeta Usuarios -->
+    <a href="{% url 'listar_usuarios' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">👥</span>
+            <h3 class="card-titulo">Gestionar Usuarios</h3>
+            <p class="card-desc">Control de dueños de motocicletas, clientes y empleados del sistema.</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content;">Acceder</span>
+    </a>
+
+    <!-- Tarjeta Motocicletas -->
+    <a href="{% url 'listar_motos' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">🏍️</span>
+            <h3 class="card-titulo">Gestionar Motocicletas</h3>
+            <p class="card-desc">Administración del inventario de vehículos, placas y vinculaciones.</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content;">Acceder</span>
+    </a>
+
+        <!-- Tarjeta Repuestos (CORREGIDA ✅) -->
+    <a href="{% url 'listar_repuestos' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">⚙️</span>
+            <h3 class="card-titulo">Gestionar Repuestos</h3>
+            <p class="card-desc">Catálogo general de piezas, stock y componentes mecánicos.</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content;">Acceder</span>
+    </a>
+
+
+    <!-- Tarjeta Órdenes -->
+    <a href="{% url 'listar_ordenes' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">📋</span>
+            <h3 class="card-titulo">Órdenes de Servicio</h3>
+            <p class="card-desc">Seguimiento de reparaciones, estados e historial de solicitudes.</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content;">Acceder</span>
+    </a>
+
+</div>
+
+<!-- ================= SECCIÓN 2: CONFIGURACIÓN DEL TALLER ================= -->
+<div class="seccion-titulo">Configuración y Tablas Relacionales</div>
+<div class="grid-modulos">
+
+    <!-- Tarjeta Talleres -->
+    <a href="{% url 'listar_talleres' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">🏢</span>
+            <h3 class="card-titulo">Gestionar Talleres</h3>
+            <p class="card-desc">Sedes autorizadas, ubicaciones y datos de contacto.</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content; background-color: #6c757d;">Configurar</span>
+    </a>
+
+    <!-- Tarjeta Servicios -->
+    <a href="{% url 'listar_servicios' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">🛠️</span>
+            <h3 class="card-titulo">Catálogo de Servicios</h3>
+            <p class="card-desc">Mantenimientos preventivos, reparaciones y tarifas estándar.</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content; background-color: #6c757d;">Configurar</span>
+    </a>
+
+    <!-- Tarjeta Roles -->
+    <a href="{% url 'listar_roles' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">🔑</span>
+            <h3 class="card-titulo">Roles del Sistema</h3>
+            <p class="card-desc">Definición de permisos de acceso (Administrador, Mecánico, Cliente).</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content; background-color: #6c757d;">Configurar</span>
+    </a>
+
+    <!-- Tarjeta Referencias -->
+    <a href="{% url 'listar_referencia_motos' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">🔖</span>
+            <h3 class="card-titulo">Referencias de Motos</h3>
+            <p class="card-desc">Marcas, cilindradas y modelos soportados por la plataforma.</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content; background-color: #6c757d;">Configurar</span>
+    </a>
+
+</div>
+
+<!-- ================= SECCIÓN 3: HERRAMIENTAS ADICIONALES ================= -->
+<div class="seccion-titulo">Herramientas Avanzadas</div>
+<div class="grid-modulos">
+    
+    <!-- Tarjeta Clima -->
+    <a href="{% url 'consultar_clima' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">☁️</span>
+            <h3 class="card-titulo">Consultar Clima</h3>
+            <p class="card-desc">API de Open-Meteo integrada para revisar el estado del tiempo en Bogotá.</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content; background-color: #198754;">Abrir API</span>
+    </a>
+
+    <!-- Tarjeta Mapa -->
+    <a href="{% url 'ver_mapa' %}" class="card-modulo">
+        <div>
+            <span class="card-icon">🗺️</span>
+            <h3 class="card-titulo">Mapa Interactivo</h3>
+            <p class="card-desc">Visor cartográfico en tiempo real para rastreo y localización de talleres.</p>
+        </div>
+        <span class="btn-click-primary" style="font-size: 12px; padding: 6px 14px; width: fit-content; background-color: #198754;">Abrir Mapa</span>
+    </a>
+</div>
+{% endblock %}

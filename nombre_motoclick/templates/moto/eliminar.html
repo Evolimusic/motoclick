@@ -1,0 +1,31 @@
+{% extends "dashboard_base.html" %}
+
+{% block panel_content %}
+<div class="header-flex">
+    <h1 style="font-size: 26px; color: #212529; font-weight: bold; margin: 0;">Confirmar Eliminación</h1>
+</div>
+
+<div class="card-custom" style="max-width: 600px; margin: 0 auto; text-align: center; padding: 40px 20px;">
+    <!-- Icono de advertencia visual -->
+    <div style="font-size: 60px; color: #dc3545; margin-bottom: 20px;">⚠️</div>
+    
+    <h2 style="color: #212529; font-size: 22px; margin-bottom: 10px;">¿Estás seguro de que deseas eliminar este registro?</h2>
+    <p style="color: #6c757d; font-size: 15px; margin-bottom: 30px;">Esta acción es definitiva y no se puede deshacer en la base de datos.</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div style="display: flex; justify-content: center; gap: 15px;">
+            <!-- Botón de cancelar que te regresa de forma segura al listado -->
+            <a href="{% url 'listar_motos' %}" class="btn-click-outline" style="padding: 10px 25px; border-radius: 50px; font-weight: bold; text-decoration: none; display: inline-block;">
+                Cancelar y Volver
+            </a>
+            
+            <!-- Botón rojo para ejecutar el borrado en MySQL -->
+            <button type="submit" class="btn-click-danger" style="background-color: #dc3545; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; border: none; cursor: pointer;">
+                Sí, Confirmar Eliminación
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

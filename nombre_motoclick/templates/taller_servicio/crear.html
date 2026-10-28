@@ -1,0 +1,9 @@
+<h1>Asociar Servicio al Taller</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }} <!-- Django pintará los selectores para vincular el Taller con el Servicio -->
+    <button type="submit">Guardar Registro</button>
+</form>
+<br>
+<a href="{% url 'home' %}">Cancelar y Volver</a>

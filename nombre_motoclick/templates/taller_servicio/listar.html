@@ -1,0 +1,28 @@
+<h1>Listado de Servicios por Taller</h1>
+<br>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID Registro</th>
+            <th>Taller</th>
+            <th>Servicio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for objeto in lista_objetos %}
+        <tr>
+            <td>{{ objeto.id_taller_servicio }}</td>
+            <td>{{ objeto.id_taller.nombre }}</td>
+            <td>{{ objeto.id_servicio.nombre_servicio }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No hay servicios asociados a ningún taller todavía.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<a href="{% url 'home' %}">Volver al Inicio</a>

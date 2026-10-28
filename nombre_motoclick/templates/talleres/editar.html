@@ -1,0 +1,9 @@
+<h1>Editar Información del Taller</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar Cambios</button>
+</form>
+<br>
+<a href="{% url 'home' %}">Cancelar y Volver</a>

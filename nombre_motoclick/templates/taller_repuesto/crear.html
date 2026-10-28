@@ -1,0 +1,9 @@
+<h1>Asociar Repuesto al Taller</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }} <!-- Django dibujará el selector de Taller, Repuesto y el Stock/Inventario -->
+    <button type="submit">Guardar Registro</button>
+</form>
+<br>
+<a href="{% url 'home' %}">Cancelar y Volver</a>

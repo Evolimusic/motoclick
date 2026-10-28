@@ -1,0 +1,30 @@
+<h1>Listado de Repuestos por Orden</h1>
+<br>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID Registro</th>
+            <th>ID Orden</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for objeto in lista_objetos %}
+        <tr>
+            <td>{{ objeto.id_orden_repuesto }}</td>
+            <td>{{ objeto.id_orden.id_orden }}</td>
+            <td>{{ objeto.cantidad }}</td>
+            <td>${{ objeto.precio_unitario }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No hay repuestos registrados en ninguna orden todavía.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<a href="{% url 'home' %}">Volver al Inicio</a>

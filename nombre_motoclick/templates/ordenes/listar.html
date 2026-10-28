@@ -1,0 +1,69 @@
+{% extends "dashboard_base.html" %}
+
+{% block panel_content %}
+<div class="header-flex">
+    <h1 style="font-size: 26px; color: #212529; font-weight: bold; margin: 0;">Órdenes de Servicio a Motos</h1>
+    <a href="{% url 'crear_orden' %}" class="btn-click-primary">
+         + Registrar Nueva Orden
+    </a>
+</div>
+
+<div class="card-custom" style="padding: 0;">
+    <table class="table-custom">
+        <thead>
+            <tr>
+                <th style="width: 10%;">N° Orden</th>
+                <th style="width: 15%;">Placa del Vehículo</th>
+                <th style="width: 20%;">Fecha de Ingreso</th>
+                <th style="width: 25%;">Diagnóstico / Observación</th>
+                <th style="width: 15%;">Estado Trabajo</th>
+                <!-- 🛠️ NUEVA COLUMNA DE ACCIONES -->
+                <th style="width: 15%; text-align: right; padding-right: 25px;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for objeto in lista_objetos %}
+            <tr>
+                <td style="font-weight: bold; color: #6c757d;">#{{ objeto.id_orden }}</td>
+                <td>
+                    <div class="placa-box">{{ objeto.id_moto.placa }}</div>
+                </td>
+                <td style="font-size: 13px; color: #495057;">
+                    {{ objeto.fecha|date:"d M Y, g:i a" }}
+                </td>
+                <td style="font-weight: 500; color: #212529;">
+                    {{ objeto.observacion|default:"Sin observación" }}
+                </td>
+                <td>
+                    {% if objeto.estado == "Buena" or objeto.estado == "Entregada" %}
+                        <span style="font-weight: bold; color: #198754; background-color: #e8f5e9; padding: 4px 10px; border-radius: 50px; font-size: 12px; text-transform: uppercase;">
+                            {{ objeto.estado }}
+                        </span>
+                    {% elif objeto.estado == "transito" or objeto.estado == "En taller" %}
+                        <span style="font-weight: bold; color: #fd7e14; background-color: #fff3cd; padding: 4px 10px; border-radius: 50px; font-size: 12px; text-transform: uppercase;">
+                            {{ objeto.estado }}
+                        </span>
+                    {% else %}
+                        <span style="font-weight: bold; color: #6c757d; background-color: #f1f3f5; padding: 4px 10px; border-radius: 50px; font-size: 12px; text-transform: uppercase;">
+                            {{ objeto.estado }}
+                        </span>
+                    {% endif %}
+                </td>
+                <!-- 🛠️ ENLACES DE ACCIÓN ESTILIZADOS -->
+                <td style="text-align: right; padding-right: 25px; white-space: nowrap;">
+                    <a href="{% url 'editar_orden' objeto.id_orden %}" class="btn-click-outline">Editar</a>
+                    <a href="{% url 'eliminar_orden' objeto.id_orden %}" class="btn-click-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align: center; color: #6c757d; padding: 30px;">
+                    No hay órdenes de servicio registradas en el sistema.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

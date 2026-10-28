@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="margin-top: 160px; margin-bottom: 60px;">
+    
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="font-weight-bold" style="color: #1a1a1a;">🛠️ Mi Garaje Virtual</h2>
+            <p class="text-muted">Administra tus vehículos registrados y encuentra las mejores sugerencias del mercado.</p>
+            <hr style="border-top: 2px solid #ff3366; width: 100px; margin: 20px auto;">
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- SECCIÓN IZQUIERDA: MIS VEHÍCULOS Y REGISTRO -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm border-0 p-4 mb-4" style="background-color: #f8f9fa; border-radius: 15px;">
+                <h4 class="font-weight-bold mb-3" style="color: #333;">Mis Motocicletas</h4>
+                
+                {% if mis_motos %}
+                    <div class="list-group">
+                    {% for moto in mis_motos %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center border-0 shadow-sm mb-2" style="border-radius: 10px;">
+                            <div>
+                                <span class="text-muted small d-block">PLACA</span>
+                                <strong class="h5 text-dark" style="letter-spacing: 1px;">{{ moto.placa }}</strong>
+                            </div>
+                            <span class="badge p-2 font-weight-bold text-white" style="background-color: #007bff; border-radius: 5px;">
+                                {{ moto.id_referencia_moto.marca }} {{ moto.id_referencia_moto.modelo }}
+                            </span>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info border-0" style="border-radius: 10px;">
+                        Aún no registras ninguna motocicleta. ¡Agrega la primera abajo!
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- FORMULARIO NUEVA MOTO -->
+            <div class="card shadow-sm border-0 p-4" style="border-radius: 15px;">
+                <h4 class="font-weight-bold mb-3" style="color: #333;">Registrar un Nuevo Vehículo</h4>
+                <form method="POST" action="{% url 'mi_garaje' %}">
+                    {% csrf_token %}
+                    <div class="form-group mb-4">
+                        <label class="text-muted font-weight-bold small mb-1">PLACA DE LA MOTO</label>
+                        <input type="text" name="placa" class="form-control" placeholder="Ej: ABC12D" style="border-radius: 8px; text-transform: uppercase;" required>
+                    </div>
+                    
+                    <div class="form-group mb-4">
+                        <label class="text-muted font-weight-bold small mb-1">MARCA Y MODELO (REFERENCIA)</label>
+                        <!-- Usamos la clase 'ignore-nice-select' para controlarlo de forma manual -->
+                        <select name="referencia_moto" class="form-control ignore-nice-select" required>
+                            <option value="">-- Seleccione la Línea de su Moto --</option>
+                            {% for ref in todas_referencias %}
+                                <option value="{{ ref.id_referencia_moto }}">{{ ref.marca }} {{ ref.modelo }} ({{ ref.cilindraje }}cc)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- CSS corregido para que el selector nativo sea 100% visible y estilizado -->
+                    <style>
+                        /* Ocultamos el clon defectuoso que genera la librería Aranoz */
+                        .form-group .nice-select {
+                            display: none !important;
+                        }
+                        /* Forzamos a que tu selector real de Bootstrap aparezca impecable */
+                        select.ignore-nice-select {
+                            display: block !important;
+                            width: 100% !important;
+                            height: 45px !important;
+                            border: 1px solid #ced4da !important;
+                            border-radius: 8px !important;
+                            padding: 0 10px !important;
+                            background-color: #ffffff !important;
+                            color: #495057 !important;
+                            font-size: 14px !important;
+                        }
+                    </style>
+                    
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-block text-white font-weight-bold" style="background-color: #ff3366; border-radius: 8px; padding: 12px; border: none; width: 100%;">
+                            ➕ Vincular Motocicleta
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DERECHA: SUGERENCIAS DINÁMICAS -->
+        <div class="col-lg-6 mb-4">
+            <!-- REPUESTOS -->
+            <div class="card shadow-sm border-0 p-4 mb-4" style="border-radius: 15px;">
+                <h4 class="font-weight-bold mb-3" style="color: #333;">🛒 Repuestos Recomendados</h4>
+                
+                {% if sugerencias_repuestos %}
+                    <div class="row">
+                    {% for repuesto in sugerencias_repuestos %}
+                        <div class="col-sm-6 mb-3">
+                            <div class="card h-100 p-3 border-0 shadow-sm bg-light" style="border-radius: 10px;">
+                                <span class="badge badge-secondary align-self-start mb-2" style="font-size: 10px;">{{ repuesto.marca }}</span>
+                                <h6 class="font-weight-bold text-dark mb-1">{{ repuesto.nombre }}</h6>
+                                <p class="small text-muted mb-2">{{ repuesto.descripcion|slice:":50" }}...</p>
+                                <div class="mt-auto">
+                                    <span class="h5 font-weight-bold text-danger">${{ repuesto.precio }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted small bg-light p-3" style="border-radius: 10px; margin-bottom: 0;">
+                        💡 Asocia una moto en el panel izquierdo para que nuestro sistema te sugiera componentes mecánicos compatibles con tu marca.
+                    </p>
+                {% endif %}
+            </div>
+
+            <!-- TALLERES -->
+            <div class="card shadow-sm border-0 p-4" style="border-radius: 15px;">
+                <h4 class="font-weight-bold mb-3" style="color: #333;">🏪 Red de Talleres Autorizados</h4>
+                <div class="list-group">
+                {% for taller in sugerencias_talleres %}
+                    <div class="list-group-item list-group-item-action border-0 shadow-sm bg-light mb-2 p-3" style="border-radius: 10px;">
+                        <h6 class="font-weight-bold mb-1 text-primary">{{ taller.nombre }}</h6>
+                        <p class="mb-1 text-muted small">📍 Dirección: {{ taller.direccion }}</p>
+                        <small class="text-dark font-weight-bold">📞 Teléfono: {{ taller.telefono }}</small>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "dashboard_base.html" %}
+
+{% block panel_content %}
+<div class="header-flex">
+    <h1 style="font-size: 26px; color: #212529; font-weight: bold; margin: 0;">Referencias de Motos</h1>
+    <!-- ➕ BOTÓN MODERNO PARA CREAR UNA NUEVA REFERENCIA -->
+    <a href="{% url 'crear_referencia_moto' %}" class="btn-click-primary">
+         + Registrar Referencia
+    </a>
+</div>
+
+<div class="card-custom" style="padding: 0;">
+    <table class="table-custom">
+        <thead>
+            <tr>
+                <th style="width: 10%;">ID</th>
+                <th style="width: 25%;">Marca</th>
+                <th style="width: 25%;">Modelo / Línea</th>
+                <th style="width: 20%;">Cilindraje</th>
+                <th style="width: 20%;">Tipo de Moto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for objeto in lista_objetos %}
+            <tr>
+                <td style="font-weight: bold; color: #6c757d;">#{{ objeto.id_referencia_moto }}</td>
+                <td style="font-weight: 600; text-transform: uppercase;">{{ objeto.marca }}</td>
+                <td style="text-transform: capitalize;">{{ objeto.modelo }}</td>
+                <td>
+                    <span style="background-color: #e9ecef; padding: 4px 12px; border-radius: 50px; font-weight: bold; color: #495057;">
+                        {{ objeto.cilindraje }} cc
+                    </span>
+                </td>
+                <td style="text-transform: capitalize; color: #6c757d;">{{ objeto.tipo_moto|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; color: #6c757d; padding: 30px;">
+                    No hay referencias de motos registradas todavía.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

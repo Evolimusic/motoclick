@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="margin-top: 160px; margin-bottom: 60px;">
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            
+            <!-- TARJETA PREMIUM DEL CLIMA -->
+            <div class="card shadow-lg text-center border-0 text-white" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); border-radius: 20px; overflow: hidden;">
+                
+                <!-- Encabezado de la tarjeta -->
+                <div class="py-3" style="background-color: rgba(0, 0, 0, 0.15);">
+                    <h5 class="mb-0 font-weight-bold text-uppercase tracking-wider" style="letter-spacing: 1.5px; font-size: 13px; opacity: 0.9;">
+                        🌤️ Estado del Clima
+                    </h5>
+                </div>
+
+                <div class="card-body p-5">
+                    <!-- Nombre de la Ciudad dinámico -->
+                    <h2 class="font-weight-bold mb-1 text-white display-4" style="letter-spacing: 1px;">
+                        {{ ciudad|default:"Bogotá" }}
+                    </h2>
+                    <p class="small mb-4" style="opacity: 0.7;">Actualizado en tiempo real</p>
+                    
+                    <!-- Bloque de Temperatura Principal -->
+                    <div class="my-4">
+                        <span class="display-2 font-weight-bold" style="font-size: 4.5rem; color: #ffffff;">
+                            {{ temperatura|default:"14.5" }}
+                        </span>
+                        <span class="h1 font-weight-light" style="vertical-align: super; font-size: 2rem; opacity: 0.9;">°C</span>
+                    </div>
+
+                    <hr style="border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 25px 0;">
+
+                    <!-- Datos Técnicos: Velocidad del Viento -->
+                    <div class="d-flex justify-content-between align-items-center bg-white-10" style="background-color: rgba(255, 255, 255, 0.08); padding: 12px 20px; border-radius: 12px;">
+                        <span style="opacity: 0.85; font-size: 14px;">💨 Velocidad del viento:</span>
+                        <strong class="h5 mb-0" style="color: #ffffff;">{{ viento|default:"8.2" }} km/h</strong>
+                    </div>
+                </div>
+
+                <!-- Barra Informativa de Utilidad para el Motero -->
+                <div class="py-3" style="background-color: rgba(0, 0, 0, 0.25);">
+                    <p class="mb-0 small font-weight-bold" style="letter-spacing: 0.5px;">
+                        🏍️ ¡Monitorea el tiempo antes de rodar en tu moto!
+                    </p>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,78 @@
+<!-- templates/dashboard_base.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoClick APP - Panel de Control</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; }
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        .navbar-click { background-color: #d85268; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .navbar-brand-click { font-size: 20px; font-weight: bold; margin: 0; }
+        
+        /* Contenedor para alinear los botones de la derecha de la barra */
+        .navbar-actions { display: flex; align-items: center; gap: 12px; }
+        
+        /* Estilo unificado para el botón de volver */
+        .btn-panel-control { background-color: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 6px 14px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; transition: background 0.2s; }
+        .btn-panel-control:hover { background-color: rgba(255, 255, 255, 0.3); }
+
+        .btn-salir { background-color: transparent; color: white; border: 1px solid white; padding: 6px 14px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 12px; }
+        .btn-salir:hover { background-color: white; color: #d85268; }
+        
+        /* Estilos globales que usarán tus tablas y formularios automáticamente */
+        .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+        .card-custom { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; border: none; padding: 20px; }
+        .table-custom { width: 100%; border-collapse: collapse; text-align: left; }
+        .table-custom th { background-color: #f1f3f5; color: #495057; padding: 14px; font-size: 13px; text-transform: uppercase; border-bottom: 2px solid #dee2e6; }
+        .table-custom td { padding: 14px; border-bottom: 1px solid #dee2e6; color: #333; vertical-align: middle; }
+        .table-custom tr:hover { background-color: #f8f9fa; }
+        
+        /* Botones unificados */
+        .btn-click-primary { background-color: #d85268; color: white; text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 14px; border: none; display: inline-block; cursor: pointer; text-align: center; }
+        .btn-click-primary:hover { background-color: #c84157; }
+        .btn-click-outline { color: #0d6efd; border: 1px solid #0d6efd; text-decoration: none; padding: 6px 14px; border-radius: 50px; font-size: 13px; display: inline-block; margin-right: 5px; }
+        .btn-click-outline:hover { background-color: #0d6efd; color: white; }
+        .btn-click-danger { color: #dc3545; border: 1px solid #dc3545; text-decoration: none; padding: 6px 14px; border-radius: 50px; font-size: 13px; display: inline-block; }
+        .btn-click-danger:hover { background-color: #dc3545; color: white; }
+        .placa-box { background-color: #212529; color: #ffc107; font-family: monospace; font-weight: bold; font-size: 16px; border: 2px solid #495057; border-radius: 6px; display: inline-block; padding: 4px 14px; }
+        
+        /* Estilos para Formularios de Crear y Editar */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #495057; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #ced4da; box-sizing: border-box; font-size: 14px; }
+        .form-group input:focus { border-color: #d85268; outline: none; box-shadow: 0 0 0 3px rgba(216, 82, 104, 0.15); }
+    </style>
+</head>
+<body>
+
+    <div class="navbar-click">
+        <h2 class="navbar-brand-click">MotoClick APP</h2>
+        
+        <!-- Grupo de acciones a la derecha -->
+        <div class="navbar-actions">
+            <!-- 📊 BOTÓN DE VOLVER AL PANEL GENERAL CORREGIDO -->
+            <a href="{% url 'landing_page' %}" class="btn-panel-control">
+                Volver Al Inicio
+            </a>
+
+            <!-- Formulario forzado con método POST hacia la ruta logout -->
+            <form action="{% url 'logout' %}" method="post" style="margin: 0; display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-salir">CERRAR SESIÓN</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- AQUÍ SE INYECTARÁ EL CONTENIDO DINÁMICO DE CADA TABLA -->
+        {% block panel_content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
+
+
+

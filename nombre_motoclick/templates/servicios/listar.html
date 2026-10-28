@@ -1,0 +1,44 @@
+{% extends "dashboard_base.html" %}
+
+{% block panel_content %}
+<div class="header-flex">
+    <h1 style="font-size: 26px; color: #212529; font-weight: bold; margin: 0;">Listado de Servicios</h1>
+    <!-- ➕ BOTÓN MODERNO PARA CREAR UN NUEVO SERVICIO -->
+    <a href="{% url 'crear_servicio' %}" class="btn-click-primary">
+         + Registrar Nuevo Servicio
+    </a>
+</div>
+
+<div class="card-custom" style="padding: 0;">
+    <table class="table-custom">
+        <thead>
+            <tr>
+                <th style="width: 15%;">ID</th>
+                <th style="width: 35%;">Nombre del Servicio</th>
+                <th style="width: 50%;">Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for objeto in lista_objetos %}
+            <tr>
+                <!-- ID del Servicio -->
+                <td style="font-weight: bold; color: #6c757d;">#{{ objeto.id_servicio }}</td>
+                
+                <!-- Nombre en negrita suave -->
+                <td style="font-weight: 500; text-transform: capitalize;">{{ objeto.nombre_servicio }}</td>
+                
+                <!-- Descripción detallada -->
+                <td style="color: #495057;">{{ objeto.descripcion|default:"Sin descripción registrada" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" style="text-align: center; color: #6c757d; padding: 30px;">
+                    No hay servicios registrados en el catálogo todavía.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+<h1>Listado de Repuestos por Taller</h1>
+<br>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID Registro</th>
+            <th>ID Taller</th>
+            <th>ID Repuesto</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for objeto in lista_objetos %}
+        <tr>
+            <td>{{ objeto.id_taller_repuesto }}</td>
+            <td>{{ objeto.id_taller_id }}</td>
+            <td>{{ objeto.id_repuesto_id }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No hay repuestos asociados a ningún taller todavía.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<a href="{% url 'home' %}">Volver al Inicio</a>
+

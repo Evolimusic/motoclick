@@ -1,0 +1,35 @@
+{% extends "dashboard_base.html" %}
+
+{% block panel_content %}
+<div class="header-flex">
+    <h1 style="font-size: 26px; color: #212529; font-weight: bold; margin: 0;">Registrar Nueva Moto</h1>
+    <a href="{% url 'listar_motos' %}" class="btn-click-outline" style="border-radius: 50px; padding: 10px 20px;">
+        Volver al Listado
+    </a>
+</div>
+
+<div class="card-custom">
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label style="font-weight: 600; color: #495057; display: block; margin-bottom: 8px;">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <span style="color: red; font-size: 12px; display: block; margin-top: 5px;">
+                        {{ field.errors|striptags }}
+                    </span>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <div style="text-align: right; margin-top: 25px;">
+            <button type="submit" class="btn-click-primary" style="width: 200px;">
+                GUARDAR MOTO
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
